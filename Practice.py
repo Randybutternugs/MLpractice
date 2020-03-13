@@ -242,8 +242,36 @@ classifier = tf.estimator.DNNClassifier(
 classifier.train(
     input_fn=lambda: input_fn(train, train_y, training=True),
     steps=5000)
-# We include a lambda to avoid creating an inner function previously
+# We include a lambda to avoid creating an inner function previously# We include a lambda to avoid creating an inner function previously
 # lambda allows for one line functions ex:
 # x = lambda: print('hi')
 # x()
 # That works
+
+#PREDICTION function
+# This allows a user to type in Sepal length, width, petal len and width and it will spit out predicted class
+
+def input_fn(features, batch_size=256):
+    # Convert the inputs to a Dataset without labels.
+    return tf.data.Dataset.from_tensor_slices(dict(features)).batch(batch_size)
+
+features = ['SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth']
+predict = {}
+
+print("Please type numeric values as prompted.")
+for feature in features:
+  valid = True
+  while valid:
+    val = input(feature + ": ")
+    if not val.isdigit(): valid = False
+
+  predict[feature] = [float(val)]
+
+predictions = classifier.predict(input_fn=lambda: input_fn(predict))
+for pred_dict in predictions:
+    class_id = pred_dict['class_ids'][0]
+    probability = pred_dict['probabilities'][class_id]
+
+    print('Prediction is "{}" ({:.1f}%)'.format(
+        SPECIES[class_id], 100 * probability))
+#YEAHAHHAHAHAHAHAHAB FIRST AI BABEY IT PREDICTED VIRGINICA WITH 95.3% CONFIDENCE
