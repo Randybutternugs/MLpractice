@@ -248,6 +248,12 @@ classifier.train(
 # x()
 # That works
 
+#Testing accuracy of the algo
+eval_result = classifier.evaluate(
+    input_fn=lambda: input_fn(test, test_y, training=False))
+
+print('\nTest set accuracy: {accuracy:0.3f}\n'.format(**eval_result))
+
 #PREDICTION function
 # This allows a user to type in Sepal length, width, petal len and width and it will spit out predicted class
 
@@ -275,3 +281,32 @@ for pred_dict in predictions:
     print('Prediction is "{}" ({:.1f}%)'.format(
         SPECIES[class_id], 100 * probability))
 #YEAHAHHAHAHAHAHAHAB FIRST AI BABEY IT PREDICTED VIRGINICA WITH 95.3% CONFIDENCE
+
+
+#####################################################################################
+############################### CLUSTERING ##########################################
+#####################################################################################
+
+# Machine Learning Technique that involves the grouping of data points.
+# In theory data points that are in the same group should have similar properties and or features.
+# data points in different groups should have similar properties and so on
+# Currently there are issues with Tensorflow and KMeans so we'll have to make an algorithm from scratch
+# Step 1: Randomly pick K points to place K centroids
+# Step 2: Assign all the data points to the centroids by distance. The closest centroid to a point is the one it is assigned to.
+# Step 3: Average all the points belonging to each centroid to find the middle of those clusters (center of mass). Place the corresponding centroids into that position.
+# Step 4: Reassign every point once again to the closest centroid.
+# Step 5: Repeat steps 3-4 until no point changes which centroid it belongs to.
+
+
+#####################################################################################
+############################### HIDDEN MARKOV MODELS ################################
+#####################################################################################
+# The Hidden Markov Model is a finite set of states, each of which is associated
+# with a (generally multidimensional) probability distribution.
+# Transitions among the states are governed by a set of probabilities called transition probabilities.
+
+# A hidden markov model works with probabilities to predict future events or states.
+# To make one I need
+# states
+# Observation distribution
+# Transition distribution
